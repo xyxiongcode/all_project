@@ -1,0 +1,8 @@
+# requst
+geometry_msgs/PoseStamped start
+geometry_msgs/PoseStamped goal
+std_msgs/Float32MultiArray map
+
+---
+# response
+nav_msgs/Path path
