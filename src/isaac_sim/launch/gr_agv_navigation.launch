@@ -1,0 +1,17 @@
+<launch>
+    <arg name="map" default="env" />
+
+    <group ns="robot4">
+        <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen">
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/costmap_common_config.yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/costmap_common_config.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/global_costmap_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/local_costmap_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/teb_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/gr_agv_nav/move_base_config.yaml" command="load" />
+            <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+            <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+            <remap from="cmd_vel" to="teb_cmd_vel" />
+        </node>
+    </group>
+</launch>

@@ -1,0 +1,49 @@
+<launch>
+    <arg name="map" default="env" />
+    <arg name="prefix" default="Carter" />
+    <arg name="launch_rviz" default="true" />
+    <arg name="disable_teb" default="false" />
+
+    <param name="use_sim_time" value="true"/>
+
+    <group ns="$(arg prefix)">
+        <include file="$(find isaac_sim)/launch/amcl.launch">
+            <arg name="base_frame_id" value="$(arg prefix)/base_link" />
+            <arg name="odom_frame_id" value="$(arg prefix)/odom" />
+            <arg name="global_frame_id" value="$(arg prefix)/map" />
+        </include>
+        <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen">
+            <rosparam file="$(find isaac_sim)/config/multi_robot/costmap_common_config.yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find isaac_sim)/config/multi_robot/costmap_common_config.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find isaac_sim)/config/multi_robot/global_costmap_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/multi_robot/local_costmap_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/teb_config.yaml" command="load" />
+            <rosparam file="$(find isaac_sim)/config/move_base_config.yaml" command="load" />
+            <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+            <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+            <param name="local_costmap/global_frame" value="$(arg prefix)/map" />
+            <param name="local_costmap/robot_base_frame" value="$(arg prefix)/base_link" />
+            <param name="local_costmap/scan/sensor_frame" value="$(arg prefix)/carter_lidar" />
+            <param name="local_costmap/scan/data_type" value="LaserScan" />
+            <param name="local_costmap/scan/topic" value="scan" />
+            <param name="local_costmap/scan/marking" value="true" />
+            <param name="local_costmap/scan/clearing" value="true" />
+            <param name="global_costmap/global_frame" value="$(arg prefix)/map" />
+            <param name="global_costmap/robot_base_frame" value="$(arg prefix)/base_link" />
+            <param name="global_costmap/scan/sensor_frame" value="$(arg prefix)/carter_lidar" />
+            <param name="global_costmap/scan/data_type" value="LaserScan" />
+            <param name="global_costmap/scan/topic" value="scan" />
+            <param name="global_costmap/scan/marking" value="true" />
+            <param name="global_costmap/scan/clearing" value="true" />
+            <remap from="cmd_vel" to="teb_cmd_vel" if="$(arg disable_teb)" />
+        </node>
+        <node pkg="map_server" type="map_server" name="map_server" args="$(find isaac_sim)/map/$(arg map).yaml">
+            <param name="frame_id" value="$(arg prefix)/map" />
+        </node>
+    </group>
+
+    <group if="$(arg launch_rviz)">
+        <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find isaac_sim)/rviz/carter.rviz" output="screen" />
+    </group>
+
+</launch>

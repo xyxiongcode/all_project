@@ -1,0 +1,7 @@
+# the robot matrix size
+robots_rows: 2
+robots_columns: 2
+
+# the size of map in meters
+map_height: 50
+map_width: 50

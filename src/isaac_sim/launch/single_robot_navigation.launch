@@ -1,0 +1,55 @@
+<!-- <launch> -->
+<!--     <arg name="map" default="env" /> -->
+
+<!--     <include file="$(find isaac_sim)/launch/amcl.launch"/> -->
+<!--     <param name="use_sim_time" value="true"/> -->
+<!--     <node pkg="move_base" type="move_base" name="move_base" respawn="false" output="screen"> -->
+<!--         <rosparam file="$(find isaac_sim)/config/costmap_common_config.yaml" command="load" ns="global_costmap" /> -->
+<!--         <rosparam file="$(find isaac_sim)/config/costmap_common_config.yaml" command="load" ns="local_costmap" /> -->
+<!--         <rosparam file="$(find isaac_sim)/config/global_costmap_config.yaml" command="load" /> -->
+<!--         <rosparam file="$(find isaac_sim)/config/local_costmap_config.yaml" command="load" /> -->
+<!--         <rosparam file="$(find isaac_sim)/config/teb_config.yaml" command="load" /> -->
+<!--         <rosparam file="$(find isaac_sim)/config/move_base_config.yaml" command="load" /> -->
+<!--         <param name="base_global_planner" value="global_planner/GlobalPlanner" /> -->
+<!--         <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
+<!--     </node> -->
+<!--     <node pkg="map_server" type="map_server" name="map_server" args="$(find isaac_sim)/map/$(arg map).yaml" /> -->
+<!--     <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find isaac_sim)/rviz/single_carter.rviz" output="screen" /> -->
+<!-- </launch> -->
+
+
+<launch>
+    <arg name="map" default="env" />
+    <param name="use_sim_time" value="true"/>
+
+    AMCL 定位
+    <include file="$(find isaac_sim)/launch/amcl.launch"/>
+
+    地图加载
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find isaac_sim)/map/$(arg map).yaml" />
+
+    RViz 可视化
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find isaac_sim)/rviz/single_carter.rviz" output="screen" />
+
+    move_base 仅保留局部规划器（如 teb），不使用全局规划器
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <rosparam file="$(find isaac_sim)/config/costmap_common_config.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find isaac_sim)/config/costmap_common_config.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find isaac_sim)/config/global_costmap_config.yaml" command="load" />
+        <rosparam file="$(find isaac_sim)/config/local_costmap_config.yaml" command="load" />
+        <rosparam file="$(find isaac_sim)/config/teb_config.yaml" command="load" />
+        <rosparam file="$(find isaac_sim)/config/move_base_config.yaml" command="load" />
+
+        禁用传统 global planner
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    </node>
+
+    DCNN 推理节点
+    <node pkg="global_nn_planner" type="dcnn_inference_node.py" name="dcnn_inference" output="screen"
+          args="-model_path /home/gr-agv-x9xy/isaac_sim_ws/src/global_nn_planner/scripts/runs/DCNN_20250616-162117/DCNN_final.pth" />
+
+    （可选）路径跟踪器
+    <node pkg="global_nn_planner" type="path_follower.py" name="dcnn_follower" output="screen" />
+
+</launch>

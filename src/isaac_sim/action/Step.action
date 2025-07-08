@@ -1,0 +1,8 @@
+# goal
+float32 forward
+float32 angular
+---
+# result
+int16 frames
+float32[] ranges
+---
