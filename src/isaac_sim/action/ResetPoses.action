@@ -1,6 +1,4 @@
 int32[] prefix
 geometry_msgs/PoseStamped[] poses
 ---
-int16 frames
-float32[] ranges
 ---

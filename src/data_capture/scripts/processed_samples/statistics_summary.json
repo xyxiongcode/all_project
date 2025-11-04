@@ -1,0 +1,10 @@
+{
+  "Total Trajectories": 0,
+  "Total Samples": 0,
+  "Average Samples per Trajectory": 0,
+  "Modality Availability (percentage)": {
+    "rgb": 0,
+    "depth": 0,
+    "detection": 0
+  }
+}
