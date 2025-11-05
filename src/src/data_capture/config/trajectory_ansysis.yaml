@@ -1,0 +1,20 @@
+sampling:
+  strategy: "hybrid"
+  time_interval_us: 500000
+  min_distance_m: 0.5
+  future_steps: 12
+  future_interval_us: 100000
+  min_history_frames: 5
+
+modalities:
+  rgb: true
+  depth: true
+  lidar: false
+  semantic: false
+  target_detection: true
+
+paths:
+  rgb_pattern: "/media/gr-agv-x9xy/backup_xxy/camera_data/train/rgb/rgb_{timestamp:08d}.png"
+  depth_pattern: "/media/gr-agv-x9xy/backup_xxy/camera_data/train/depth_vis/depth_vis_{timestamp:08d}.png"
+
+  output_dir: "/media/gr-agv-x9xy/backup_xxy/camera_data/processed_samples"

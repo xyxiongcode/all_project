@@ -1,0 +1,4 @@
+int32[] prefix
+geometry_msgs/PoseStamped[] poses
+---
+---

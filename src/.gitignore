@@ -1,0 +1,53 @@
+# ROS build outputs
+build/
+devel/
+install/
+log/
+src/deep_learning_planner/rl_logs/
+src/deep_learning_planner/logs/
+src/deep_learning_planner/transformer_logs/
+src/diffusion_planner/
+src/drl_vo_planner/
+src/global_nn_planner/db_cnnn_planner_logs/
+src/global_nn_planner/Gridworld_experiments/
+src/global_nn_planner/Mars_experiments/
+src/global_nn_planner/scripts/ckpt/
+src/global_nn_planner/scripts/log/
+src/global_nn_planner/scripts/runs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# 编辑器、IDE 配置文件
+.idea/
+.vscode/
+
+# OS 生成的临时文件
+.DS_Store
+Thumbs.db
+
+# 忽略 catkin 工程的 workspace 配置缓存
+.ccls-cache/
+compile_commands.json
+
+# 临时 backup 文件
+*~
+*.swp
+*.swo
+
+# ROS bag 文件（如你使用 rosbag）
+*.bag
+*.bag.active
+
+# Launch 文件临时生成的日志等
+*.launch.xml
+*.testlog
+*.log
+
+# 你如果使用 virtualenv 虚拟环境：
+venv/
+env/

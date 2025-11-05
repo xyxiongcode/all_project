@@ -1,0 +1,4 @@
+float64 collision_reward
+float64 arrival_reward
+float64 angular_reward
+float64 total_reward

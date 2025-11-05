@@ -1,0 +1,25 @@
+# 相机采样器参数配置
+
+# 基本设置
+mode: "path_points"
+save_dir: "/media/gr-agv-x9xy/backup_xxy/datasets_camera/run_path"
+debug: true
+
+# 话题设置
+rgb_topic: "/camera/color/image_raw"
+depth_topic: "/camera/depth/image_rect"
+rgb_info_topic: "/camera/color/camera_info"
+depth_info_topic: "/camera/depth/camera_info"
+path_topic: "/move_base/GlobalPlanner/plan"
+pose_topic: "/amcl_pose"
+
+# 同步设置
+images_only: false
+queue_size: 50
+sync_slop: 0.3
+depth_encoding: "16UC1"
+
+# 触发设置
+interval_sec: 0.5
+every_n_points: 5
+distance_threshold_m: 0.4

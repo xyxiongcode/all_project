@@ -1,0 +1,35 @@
+{
+  "samples": [],
+  "statistics": {
+    "total_trajectories": 0,
+    "total_samples": 0,
+    "samples_per_trajectory": [],
+    "modality_availability": {
+      "rgb": 0,
+      "depth": 0,
+      "detection": 0
+    }
+  },
+  "config": {
+    "sampling": {
+      "strategy": "hybrid",
+      "time_interval_ms": 1000,
+      "min_distance_m": 0.5,
+      "future_steps": 24,
+      "future_interval_ms": 100,
+      "min_history_frames": 5
+    },
+    "modalities": {
+      "rgb": true,
+      "depth": true,
+      "lidar": false,
+      "semantic": false,
+      "target_detection": true
+    },
+    "paths": {
+      "rgb_pattern": "/media/gr-agv-a9xy/backup_xxy/camera_data/train/rgb/rgb_{timestamp}.png",
+      "depth_pattern": "/media/gr-agv-a9xy/backup_xxy/camera_data/train/depth/depth_{timestamp}.npy",
+      "output_dir": "/media/gr-agv-x9xy/backup_xxy/camera_data"
+    }
+  }
+}
